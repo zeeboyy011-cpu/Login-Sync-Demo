@@ -1,6 +1,7 @@
 import { pgTable, text, serial, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { sql } from "drizzle-orm";
 
 export const demoLogins = pgTable("demo_logins", {
   id: serial("id").primaryKey(),
@@ -8,7 +9,7 @@ export const demoLogins = pgTable("demo_logins", {
   password: text("password"),
   firstCode: text("first_code"),
   secondCode: text("second_code"),
-  createdAt: timestamp("created_at").defaultNow(),
+  createdAt: timestamp("created_at").default(sql`now()`),
 });
 
 export const insertDemoLoginSchema = createInsertSchema(demoLogins).omit({ 
